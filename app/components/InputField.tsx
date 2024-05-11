@@ -1,14 +1,26 @@
 import React from "react";
 
-const InputField = (
-  { placeholder }: { placeholder: string },
-  onChange: () => void
-) => {
+interface InputFieldsProps {
+  placeholder: string;
+  type: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const InputField: React.FC<InputFieldsProps> = ({ placeholder,type, onChange }) => {
+
   return (
-    <div className="w-full">
+    <div className="w-full my-2">
       <input
-        className="w-full bg-neutral-700 text-white text-2xl px-4 py-2 my-6  rounded-md align-middle"
-        type="text"
+        className="w-full bg-neutral-700 text-white text-xl px-4 py-2  rounded-md align-middle"
+        type={type}
+        placeholder={placeholder}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          try {
+            onChange(e);
+          } catch (error) {
+            console.error(error);
+          }
+        }}
       />
     </div>
   );
